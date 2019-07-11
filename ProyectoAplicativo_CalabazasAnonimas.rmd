@@ -1096,10 +1096,9 @@ Primer Merge antes de la data final
 ```{r}
 datita = demoOrd[,c(1, 6)]#eliminar esas columnas#Seleccionamos solo la variable ordinal
 names(datita) = c("bye", "Calidad") #eliminar esas columnas
-head(datita)
 ```
 
-
+merge entre datatotal y la variable categorica ordinal
 ```{r}
 data1 = merge.data.frame(datatotal, datita , by= 0) #merge entre nuestras variables junto a las categorias creadas de la regresion ordinal 
 row.names(data1) = data1$Row.names
@@ -1107,11 +1106,17 @@ data1$Row.names = NULL #Eliminamos la columna row.names
 data1$bye = NULL
 ```
 
-
+merge entre data1 y los clusters
 ```{r}
-datatotalfinal = merge.data.frame(data1,VarInd_map_DF , by= 0) #creamos la data final para exportar a formato XLSX
-datatotalfinal$V1 = NULL #eliminamos las coordenadas 
-datatotalfinal$V2 = NULL
+datatotal2 = merge.data.frame(data1,VarInd_map_DF , by= 0) #creamos la data final para exportar a formato XLSX
+datatotal2$V1 = NULL #eliminamos las coordenadas 
+datatotal2$V2 = NULL
+row.names(datatotal2) = datatotal2$Row.names
+datatotal2$Row.names = NULL #Eliminamos la columna row.names
+```
+Merge entre datatotal2 con los indices creados en el analisis factorial
+```{r}
+datatotalfinal = merge.data.frame(datatotal2,dimInd , by= 0) #creamos la data final para exportar a formato XLSX
 row.names(datatotalfinal) = datatotalfinal$Row.names
 datatotalfinal$Row.names = NULL #Eliminamos la columna row.names
 ```
